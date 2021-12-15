@@ -30,10 +30,7 @@ class ApiController extends AbstractController
         $result = $stmt->executeQuery()->fetchAllAssociative();
         //dump($result); die;
 
-        return $this->json([
-            'message' => $result,
-            'path' => 'src/Controller/PostController.php',
-        ]);
+        return $this->json($result);
     }
 
 }
