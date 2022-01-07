@@ -1,3 +1,10 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+billing:
+   path: /api/customer/billinginfo
+   controller: App\Controller\BillingController::index
+customer_show:
+    path: /api/customer/{id}/billinginfo
+    controller: App\Controller\BillingController::show
+    methods:    GET|HEAD
