@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 07, 2022 at 02:07 PM
+-- Generation Time: Jan 11, 2022 at 07:15 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.3.29
 
@@ -559,6 +559,26 @@ CREATE TABLE `product_versions` (
 INSERT INTO `product_versions` (`id`, `clientId`, `productId`, `version`, `status`, `calculationId`, `importId`, `genericId`, `emobilityEntityId`, `createdBy`, `createdAt`, `updatedBy`, `updatedAt`, `assignedTo`, `releaseRequestedBy`, `releaseRequestedAt`, `releasedBy`, `releasedAt`, `deprecatedBy`, `deprecatedAt`, `lockedBy`, `lockedAt`, `name`, `validFrom`, `validUntil`, `brandId`, `kind`, `invoiceBase`, `contractInvoiceCycle`, `contractInvoiceCycleInterval`, `contractInvoiceCycleIntervalType`, `contractInitialDuration`, `contractInitialDurationType`, `contractExtensionTime`, `contractExtensionTimeType`, `contractCancellationPeriod`, `contractCancellationPeriodType`, `contractDepositDivisor`, `everyTimeCancellable`, `erpExternalId`, `erpWeight`, `erpStatisticGroup`, `erpVolume`, `erpVariantGroupCode`, `erpProductLink`, `erpManufacturer`, `erpManufacturerNumber`, `erpAccount`, `erpAllowSplitAmount`, `cmsAgb`, `cmsProperties`, `cmsDescriptionInternal`, `cmsDescriptionExternal`, `cmsFileId`, `noteFreetext`, `contractMinCreditRating`, `procurementPrice`, `surchargeVariable`, `surchargeFix`, `creditCheckType`, `relocationProhibited`, `meterPricing`, `modificationDate`, `tenantElectricity`, `billingRuleTemplateId`, `simulationForDeposit`) VALUES
 (1, 3, 1, 1, 'deprecated', 1, NULL, NULL, NULL, 11, '2020-04-21 12:42:11', 11, '2020-04-21 12:43:25', 12, NULL, NULL, 11, '2020-10-21 12:43:25', 11, '2020-10-28 17:22:33', NULL, NULL, 'Basistarif', '2009-07-01', '2025-07-01', NULL, 'contract', 'reading', 'interval', 12, 'months', 0, 'days', 0, 'days', 0, 'days', 12, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', '', '', '', NULL, '', '0.00', '0.00000', '0.00000', '0.00000', 0, 0, 'included', NULL, NULL, 23, 0);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `authUsername` varchar(255) NOT NULL,
+  `authHash` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `email`, `authUsername`, `authHash`) VALUES
+(1, 'test@test.com', 'test', 'test');
+
 --
 -- Indexes for dumped tables
 --
@@ -593,6 +613,12 @@ ALTER TABLE `customer_versions`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -618,6 +644,12 @@ ALTER TABLE `contract_vehicles`
 -- AUTO_INCREMENT for table `customer_versions`
 --
 ALTER TABLE `customer_versions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
