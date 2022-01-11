@@ -19,32 +19,27 @@ class CustomerVersionsRepository extends ServiceEntityRepository
         parent::__construct($registry, CustomerVersions::class);
     }
 
-    // /**
-    //  * @return CustomerVersions[] Returns an array of CustomerVersions objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getCustomerDetails($id = '')
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $conn = $this->getEntityManager()->getConnection();
 
-    /*
-    public function findOneBySomeField($value): ?CustomerVersions
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $sql = 'SELECT CV.salutation, CV.title, CV.firstname, CV.surname, ACC.id AS accountId, CV.street, CV.houseNumber, CV.zip, CV.city, CV.countryId, CV.emailPrivate, CV.phoneHome, CV.phoneBusiness, CV.phoneMobile, ACC.balance AS accountBalance, ACC.totalDebitDue, ACC.exportedAt AS SetupDate, PV.contractInvoiceCycleInterval, PV.contractInvoiceCycleIntervalType, CRV.licensePlate
+        FROM accounts AS ACC
+        LEFT JOIN contracts AS CON ON CON.accountid = ACC.id
+        LEFT JOIN customer_versions AS CV ON CON.customerId = CV.customerId
+        LEFT JOIN product_versions AS PV ON PV.clientId = CV.clientId
+        LEFT JOIN contract_vehicles AS CRV ON CRV.clientId = CV.clientId
+        WHERE 1 ';
+
+        if(!empty($id))
+        {
+            $sql = $sql  . ' AND ACC.id = '.$id;
+        }
+
+        $stmt   = $conn->prepare($sql);
+        $result = $stmt->executeQuery()->fetchAllAssociative();
+        //dump($result); die;
+
+        return $result;
     }
-    */
 }
