@@ -29,10 +29,9 @@ class ContractsRepository extends ServiceEntityRepository
 
         $conn = $this->getEntityManager()
         ->getConnection();
-        $sql = 'SELECT CR.*, CT.*
+        $sql = 'SELECT CR.*, CT.*, ACT.*
         FROM contract_readings AS CR
-        LEFT JOIN contract_tariffs AS CT ON CT.clientId = CR.clientId
-        WHERE 1 ';
+        LEFT JOIN contract_tariffs AS CT ON CT.clientId = CR.clientId JOIN accounts as ACT ON ACT.clientId = CR.clientId WHERE 1 ';
         if(!empty($id))
         {
             $sql = $sql  . ' AND CR.clientId = '.$id;
