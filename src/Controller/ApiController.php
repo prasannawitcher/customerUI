@@ -28,9 +28,9 @@ class ApiController extends AbstractController
     public function getLoginData(Request $request, UsersRepository $usersRepository): Response
     {
         //dump($request->get('email')); die;
-        if(!empty($request->get('uname')) && !empty($request->get('password')))
+        if(!empty($request->get('email')) && !empty($request->get('password')))
         {
-            $result = $usersRepository->findByCredential($request->get('uname'), $request->get('password'));
+            $result = $usersRepository->findByCredential($request->get('email'), $request->get('password'));
 
             if(!empty($result))
             {

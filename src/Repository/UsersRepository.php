@@ -19,13 +19,13 @@ class UsersRepository extends ServiceEntityRepository
         parent::__construct($registry, Users::class);
     }
 
-    public function findByCredential($uname, $password)
+    public function findByCredential($email, $password)
     {
         $conn = $this->getEntityManager()->getConnection();
 
         $sql = 'SELECT id, email, AuthUsername
         FROM Users
-        WHERE AuthUsername= "'.$uname.'" AND authHash= "'.$password.'"';
+        WHERE email= "'.$email.'" AND authHash= "'.$password.'"';
 
         $stmt   = $conn->prepare($sql);
         $result = $stmt->executeQuery()->fetchAllAssociative();
