@@ -23,7 +23,7 @@ class ApiController extends AbstractController
     }
 
     /**
-     * @Route("/getLoginData/", name="getLoginData")
+     * @Route("/getLoginData/", name="getLoginData", methods={"POST"})
      */
     public function getLoginData(Request $request, UsersRepository $usersRepository): Response
     {
