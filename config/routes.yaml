@@ -4,6 +4,10 @@
 billing:
    path: /api/customer/billinginfo
    controller: App\Controller\BillingController::index
+login:
+   path: /api/customer/login
+   controller: App\Controller\LoginController::index
+   methods:    POST|HEAD
 customer_show:
     path: /api/customer/{id}/billinginfo
     controller: App\Controller\BillingController::show
