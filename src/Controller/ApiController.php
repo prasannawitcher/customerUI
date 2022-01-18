@@ -23,22 +23,23 @@ class ApiController extends AbstractController
     }
 
     /**
-     * @Route("/getLoginData/", name="getLoginData", methods={"POST"})
+     * @Route("/getCustomerDataByFilters", name="getCustomerDataByFilters", methods={"POST"})
      */
-    public function getLoginData(Request $request, UsersRepository $usersRepository): Response
+    public function getCustomerDataByFilters(Request $request, CustomerVersionsRepository $customerVersionsRepository): Response
     {
-        //dump($request->get('email')); die;
-        if(!empty($request->get('email')) && !empty($request->get('password')))
+        $paramsArr = array();
+        if(!empty($request->get('email')))
         {
-            $result = $usersRepository->findByCredential($request->get('email'), $request->get('password'));
-
-            if(!empty($result))
-            {
-                return $this->json($result);
-            }
-            return new Response(false);
+            $paramsArr['email'] = $request->get('email');
         }
-        return new Response(false);
+        if(!empty($request->get('name')))
+        {
+            $paramsArr['name'] = $request->get('name');
+        }
+
+        //dump($request->get('email'));die;
+        $result = $customerVersionsRepository->getCustomerDetailsByParam($paramsArr);
+        return $this->json($result);
     }
 
 }

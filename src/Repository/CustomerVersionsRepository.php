@@ -42,4 +42,31 @@ class CustomerVersionsRepository extends ServiceEntityRepository
 
         return $result;
     }
+
+    public function getCustomerDetailsByParam($param)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        //ACC.id AS accountId,CON.id AS contractId,
+        $sql = 'SELECT CV.salutation, CV.title, CV.firstname, CV.surname, CV.emailPrivate, CV.emailBusiness, CON.id AS contractId, ACC.id AS accountId
+        FROM customer_versions AS CV
+        LEFT JOIN contracts AS CON ON CON.customerId = CV.customerId
+        LEFT JOIN accounts AS ACC ON ACC.id = CON.accountid
+        WHERE 1 ';
+
+        if(!empty($param['name']))
+        {
+            $sql = $sql  . ' AND (CV.firstname LIKE "%'.$param['name'].'%" OR CV.surname LIKE "%'.$param['name'].'")';
+        }
+        if(!empty($param['email']))
+        {
+            $sql = $sql  . ' AND (CV.emailPrivate LIKE "%'.$param['email'].'%" OR CV.emailBusiness LIKE "%'.$param['email'].'")';
+        }
+
+        $stmt   = $conn->prepare($sql);
+        $result = $stmt->executeQuery()->fetchAllAssociative();
+        //dump($result); die;
+
+        return $result;
+    }
+
 }
